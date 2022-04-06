@@ -67,6 +67,11 @@ class Normal():
         bestMu = np.mean(plausibleMus[bestMuIndex]) # take the mean. In some cases, the ML can span two (closely spaced) points, particularly early on/when broad. So go for the middle.
         bestTau = np.mean(plausibleTaus[bestTauIndex])
         return (bestMu,bestTau)
+    def getKLDivergence(self,mu1,mu2,sigma1,sigma2):
+        sigmaRatio = np.log(sigma2/sigma1)
+        meanDifference = mu1 - mu2
+        divergence = sigmaRatio + ( (np.square(sigma1)+np.square(meanDifference)) / (2*np.square(sigma2)) ) - .5
+        return divergence
     def makeFigure(self,plausibleMus,plausibleTaus,theta):
         # generates a summary figure
         # get data
@@ -174,5 +179,14 @@ normalConjugate.addTrueSourcePlots(axSourceEstimate,estimateLine,mu,sigma)
 print('Finished. Best parameters are:')
 print('mu', bestMu)
 print('sigma',1/np.sqrt(bestTau))
+
+## 
+mu1 = 5
+mu2 = 10
+sig1 = 10
+sig2 = 1
+
+dkl = normalConjugate.getKLDivergence(mu1,mu2,sig1,sig2)
+print('divergence',dkl)
 
 plt.show()
