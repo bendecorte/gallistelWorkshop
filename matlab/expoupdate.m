@@ -14,6 +14,9 @@ function [mxLkLam,mnPostLam,theta,postgam,postmu] = expoupdate(n,T,theta0,nb,fig
 % with values for lambda in the first column and corresponding p values in
 % the second column; postmu is the same distribution after change of
 % variable (from lambda  to mu)
+if nargin<4
+    nb = 100;
+end
 if nargin<5
     fig = false;
 end

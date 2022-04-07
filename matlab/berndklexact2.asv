@@ -17,10 +17,12 @@ otherwise.
 %}
 nn = length(p);
 if nn>1
-    p = reshape(p,length(p),1); % added by bjd in case user passes a row vector
     n = repmat(n,nn,1); % making n a col vector same length as p
-    k = repmat(k,nn,1); % ditto for k   
+    k = repmat(k,nn,1); % ditto for k
+    p = reshape(p,length(p),1);
 end
+disp(['size k pre: ' num2str(size(k))])
+disp(['size n pre: ' num2str(size(n))])
 n = n+0; % converts to double (in case n came in as logical)
 k = k+0; % ditto for k
 pp = p.^k.*(1-p).^(n-k).*factorial(n)./(factorial(k).*factorial(n-k));
@@ -29,14 +31,14 @@ pp = p.^k.*(1-p).^(n-k).*factorial(n)./(factorial(k).*factorial(n-k));
 kk = k;
 Pgtoreq  = pp;
 disp(['size pGreater: ' num2str(size(Pgtoreq))])
-while kk(1,1)<n % revised from 'kk<n' to avoid potentially weird behavior of comparing a full vector to a scalar
+while kk<n
     kk = kk+1;
     Pgtoreq = Pgtoreq + p.^kk.*(1-p).^(n-kk).*factorial(n)./(factorial(kk).*factorial(n-kk));
 end
 
 kk = k;
 Pltoreq = pp;
-while kk(1,1)>0 % changed by bjd same as above
+while kk>0
     kk = kk-1;
     Pltoreq = Pltoreq + p.^kk.*(1-p).^(n-kk).*factorial(n)./(factorial(kk).*factorial(n-kk));
 end
