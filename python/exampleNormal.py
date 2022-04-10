@@ -1,11 +1,22 @@
-# BJD. Code for estimating the hyperparameters of the normalgamma prior on the mean and precision of the normal distribution, including a simple illustration with simulated data.
-# The Normal() class contains all relevant methods for the analysis. The most relevant ones are:
-# 1. updateTheta(data,theta): Returns the updated hyperparameters based on the incoming data and current hyperparameter values (theta)
-# 2. getPosteriorStats(mus,taus,theta): Evaluates the normalgamma distribution a points for mu and tau specified by the user (mus and taus, respectively), based on 
-#                                       the current hyperparameters (theta). 
-#                                       Returns the best estimate of the mean and precision (maximum likelihood estimates) and also the pdf.       
-# For further illustration on use, see the simple simulation below the class.   
-# In general, all inputs should be 1-d numpy arrays or floats. Some basic checks are included, but they are not necessarily exhaustive.               
+# illustrates usage of normalgamma conjugate prior to estimate parameters of a normal source distribution
+
+# MIT License
+# Copyright (c) 2022 bendecorte
+# Permission is hereby granted, free of charge, to any person obtaining a copy
+# of this software and associated documentation files (the "Software"), to deal
+# in the Software without restriction, including without limitation the rights
+# to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+# copies of the Software, and to permit persons to whom the Software is
+# furnished to do so, subject to the following conditions:
+# The above copyright notice and this permission notice shall be included in all
+# copies or substantial portions of the Software.
+# THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+# IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+# FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+# AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+# LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+# OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+# SOFTWARE.
 
 import numpy as np
 import matplotlib.pyplot as plt
