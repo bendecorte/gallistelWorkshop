@@ -3,7 +3,7 @@ import scipy.stats
 import matplotlib.pyplot as plt
 import copy
 
-# left off: realigning bars when adding source data. looking at bar.set_x()
+# left off: testing branch
 # to do: 
 # potential bug in randy code for bernoulli kl divergence. in while loops where multiple ps are requested, wouldn't kk<n return multiple values. Need to check
 # add function that will do initial scan of the data before loop to allow user to verify in correct format (i.e., all 0's and 1's)? Could maybe do for the other classes too, but weirder with floats
