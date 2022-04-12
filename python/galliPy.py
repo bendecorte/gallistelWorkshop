@@ -1,4 +1,4 @@
-# Code by Benjamin John De Corte (i.e., bjd). If code doesn't work, send nasty message to bendecorte on github.
+# All python code by Benjamin John De Corte (i.e., bjd). For questions/recommendations, contact via github at bendecorte
 # Description:
 # Contains all relevant code for using conjugate priors for the Bernoulli, Exponential, and Normal distributions, as well as computing computing Kullback-Leibler divergence 
 # measures. This code was intitially intended to accompany a workshop given by CR Gallistel in 2022 for applying these analyses to conditioning data.
@@ -39,18 +39,6 @@ import numpy as np
 import scipy.stats
 import matplotlib.pyplot as plt
 import copy
-
-# minor to do's:
-# overall:
-# -better documentation for inputs/outputs for each class
-# exponential class:
-# -reduce inputs needed for the getPosteriorStats function. could store the last n/data point as a property. keeping consistent with the matlab code for now. 
-# -make figure summary colors consistent across classes
-# -multiple data inputs for theta function?
-# bernoulli class:
-# -add function that will do initial scan of the data before loop to allow user to verify in correct format (i.e., all 0's and 1's)? Could maybe do for the other classes too, but weirder with floats
-# normal class:
-# maybe add a method for getting default values for mu/sigma based on user data
 
 class Bernoulli:
     def __init__(self):
@@ -491,3 +479,15 @@ class Normal:
         textY = copy.deepcopy(textY)
         trueText = axSourceEstimate.text(textX,textY,'true')
         trueText.set_color(sourceLine.get_color())
+
+# minor to do's:
+# overall:
+# -better documentation for inputs/outputs for each class
+# exponential class:
+# -reduce inputs needed for the getPosteriorStats function. could store the last n/data point as a property. keeping consistent with the matlab code for now. 
+# -make figure summary colors consistent across classes
+# -multiple data inputs for theta function?
+# bernoulli class:
+# -add function that will do initial scan of the data before loop to allow user to verify in correct format (i.e., all 0's and 1's)? Could maybe do for the other classes too, but weirder with floats
+# normal class:
+# maybe add a method for getting default values for mu/sigma based on user data
