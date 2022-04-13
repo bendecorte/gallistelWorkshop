@@ -18,6 +18,11 @@
 %  OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 %  SOFTWARE.
 
+isOctave = exist('OCTAVE_VERSION', 'builtin') ~= 0;
+if isOctave 
+	pkg load statistics  % for Octave
+end
+
 set(0,'defaultAxesFontSize',24)
 close
 figure; set(gcf,'OuterPosition',[ 663.00 1299.00 653.00 1091.00])
@@ -34,11 +39,20 @@ for d = 1:50 % stepping through the data
     % vector of gammapdf posterior; postgam = updated posterior
     % gamma distribution--but with unnomrmalized probability density vector
     % hence likelihoods not probability densities
-    hold(ax,'off')
+    if isOctave
+	hold off
+    else
+	hold(ax,'off')
+    end
     plot(ax(1),postgam(:,1),postgam(:,2),'k-','LineWidth',2) % plotting posterior
     xlim(ax(1),[0 1])
     ylim(ax(1),[0 .03])
-    hold(ax(1),'on') 
+    if isOctave
+	hold on
+    else
+    	hold(ax(1),'on') 
+    end
+
     plot(ax(1),[.1 .1],ylim(ax(1)),'k--','LineWidth',1) % true value of lambda
     d100 = .01*max(postgam(:,2)); % 100 times less likely than the max likelihood
     plot(ax(1),xlim,[d100 d100],'k:','LineWidth',2)
