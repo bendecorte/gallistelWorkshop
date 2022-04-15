@@ -20,7 +20,7 @@
 
 import numpy as np
 import matplotlib.pyplot as plt
-from galliPy import Bernoulli
+from analysisScripts.galliPy import Bernoulli
 
 print('Generating data')
 p = .2

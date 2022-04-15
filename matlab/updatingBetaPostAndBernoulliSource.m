@@ -1,4 +1,5 @@
 function updatingBetaPostAndBernoulliSource(p1,p2)
+addpath(genpath(pwd),'-begin') % top of search path in case of conflicting dependencies
 % press any key to see next update
 close
 set(0,'defaultAxesFontSize',24)

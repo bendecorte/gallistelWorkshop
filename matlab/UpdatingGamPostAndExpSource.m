@@ -18,6 +18,7 @@
 %  OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 %  SOFTWARE.
 
+addpath(genpath(pwd),'-begin') % top of search path in case of conflicting dependencies
 isOctave = exist('OCTAVE_VERSION', 'builtin') ~= 0;
 if isOctave; pkg load statistics; end
 

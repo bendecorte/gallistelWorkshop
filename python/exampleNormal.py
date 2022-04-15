@@ -20,7 +20,7 @@
 
 import numpy as np
 import matplotlib.pyplot as plt
-from galliPy import Normal
+from analysisScripts.galliPy import Normal
 
 print('Generating data')
 mu = 10

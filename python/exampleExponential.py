@@ -20,7 +20,7 @@
 
 import numpy as np
 import matplotlib.pyplot as plt
-from galliPy import Exponential
+from analysisScripts.galliPy import Exponential
 
 print('Generating data')
 mu = .2
