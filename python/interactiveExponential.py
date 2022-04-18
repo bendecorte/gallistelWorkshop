@@ -55,13 +55,12 @@ class InteractiveNormalFig(Normal):
     def updateFig(self,event):
         # update theta/plot
         self.dataIndex = self.dataIndex + 1
-        if self.dataIndex < np.shape(self.data)[0]:
+        if self.dataIndex <= np.shape(self.data)[0]:
             self.theta = self.conjugate.updateTheta(self.data[self.dataIndex],self.theta)
             self.axSourceEstimate.clear() # lazy way, but the built-in figure functions have code for adjusting axis-limits, etc, which help. 
             self.axPosterior.clear()
             self.estimateLine = self.conjugate.makeFigure(self.axSourceEstimate,self.axPosterior,self.plausibleMus,self.plausibleTaus,self.theta)
             self.conjugate.addTrueSourcePlots(self.axSourceEstimate,self.estimateLine,self.mu,self.sigma)
-            self.axSourceEstimate.plot(np.array([self.data[self.dataIndex],self.data[self.dataIndex]]),self.axSourceEstimate.get_ylim())
             plt.draw()
             print('click figure to run next iteration')
         else:
@@ -73,5 +72,6 @@ class InteractiveNormalFig(Normal):
 
 mu = 10
 sigma = 2
-numDataPoints = 500
+numDataPoints = 50
 f = InteractiveNormalFig(mu,sigma,numDataPoints)
+crash
