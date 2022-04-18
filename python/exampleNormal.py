@@ -43,7 +43,9 @@ for dataI,dataValue in enumerate(dataPoints):
     bestMu,bestTau,posteriorPDF = normalConjugate.getPosteriorStats(plausibleMus,plausibleTaus,theta)
 
 print('Making analysis output figure')
-fig,axSourceEstimate,axPosterior,estimateLine = normalConjugate.makeFigure(plausibleMus,plausibleTaus,theta)
+
+fig,axSourceEstimate,axPosterior = normalConjugate.initSummaryFigure()
+estimateLine = normalConjugate.makeFigure(axSourceEstimate,axPosterior,plausibleMus,plausibleTaus,theta)
 
 print('Adding true parameters to figure')
 normalConjugate.addTrueSourcePlots(axSourceEstimate,estimateLine,mu,sigma)

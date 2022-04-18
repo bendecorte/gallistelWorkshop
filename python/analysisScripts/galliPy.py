@@ -103,7 +103,12 @@ class Normal:
         meanDifference = mu1 - mu2
         divergence = sigmaRatio + ( (np.square(sigma1)+np.square(meanDifference)) / (2*np.square(sigma2)) ) - .5
         return divergence
-    def makeFigure(self,plausibleMus,plausibleTaus,theta):
+    def initSummaryFigure(self):
+        fig = plt.figure(figsize=plt.figaspect(.5))  
+        axSourceEstimate = fig.add_subplot(1,2,1)
+        axPosterior = fig.add_subplot(1,2,2)
+        return(fig,axSourceEstimate,axPosterior)
+    def makeFigure(self,axSourceEstimate,axPosterior,plausibleMus,plausibleTaus,theta):
         # generates a summary figure
         # get data
         mu,_lambda,alpha,beta = self.unpackTheta(theta)   
@@ -111,10 +116,6 @@ class Normal:
         bestSigma = 1/np.sqrt(bestTau)
         sourceX = np.linspace(-4*bestSigma,4*bestSigma,200) + bestMu
         estimatePDF = scipy.stats.norm.pdf(sourceX,bestMu,bestSigma)
-        # make figure
-        fig = plt.figure(figsize=plt.figaspect(.5))  
-        axSourceEstimate = fig.add_subplot(1,2,1)
-        axPosterior = fig.add_subplot(1,2,2)
         # plot estimate pdf
         estimateLine, = axSourceEstimate.plot(sourceX,estimatePDF)
         estimateLine.set_linewidth(3)
@@ -152,7 +153,7 @@ class Normal:
         pos = copy.deepcopy(pos) # unsure if the copy will ever matter but just in case
         pos[0] = pos[0] + axWidth + colSpace
         axPosterior.set_position(pos)
-        return (fig,axSourceEstimate,axPosterior,estimateLine)
+        return estimateLine
     def addTrueSourcePlots(self,axSourceEstimate,estimateLine,mu,sigma):
         # adds summary of 'ground-truth' parameters when running the analysis on simulated data. axSourceEstimate and estimateLine come from the initial makeFigure method. mu and sigma are the normal parameters specified by the user for a simulation. 
         # plot source
