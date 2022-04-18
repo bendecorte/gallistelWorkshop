@@ -409,15 +409,16 @@ class Bernoulli:
             p = np.array(p)
             p = np.reshape(p,(1,))
         return n,k,p    
-    def makeFigure(self,theta):
+    def initSummaryFigure(self):
+        fig = plt.figure(figsize=plt.figaspect(.5))  
+        axSourceEstimate = fig.add_subplot(1,2,1)
+        axPosterior = fig.add_subplot(1,2,2)
+        return(fig,axSourceEstimate,axPosterior)        
+    def makeFigure(self,axSourceEstimate,axPosterior,theta):
         # makes a summary figure for the current theta
         # get data
         alpha,beta = self.unpackTheta(theta) 
         bestP,posteriorPDF,posteriorX = self.getPosteriorStats(theta)
-        # make figure
-        fig = plt.figure(figsize=plt.figaspect(.5))  
-        axSourceEstimate = fig.add_subplot(1,2,1)
-        axPosterior = fig.add_subplot(1,2,2)
         # plot estimate pdf
         barWidth = .4
         estimateBarFail, = axSourceEstimate.bar(0.,1-bestP,width = barWidth,color = [0,1,0])
@@ -458,7 +459,7 @@ class Bernoulli:
         pos = copy.deepcopy(pos) # unsure if the copy will ever matter but just in case
         pos[0] = pos[0] + axWidth + colSpace
         axPosterior.set_position(pos)
-        return (fig,axSourceEstimate,axPosterior,estimateBarSuccess,estimateBarFail)
+        return (estimateBarSuccess,estimateBarFail)
     def addTrueSourcePlots(self,axSourceEstimate,trueP,estimateBarSuccess,estimateBarFail):
         # adds 'ground truth' data for explicitly simulated Bernoulli distribution. 
         # get existing bar info

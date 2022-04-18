@@ -41,7 +41,8 @@ for dataI,dataValue in enumerate(dataPoints):
 bestP,posteriorPDF,posteriorX = bernoulliConjugate.getPosteriorStats(theta)
 
 print('Making analysis output figure')
-fig,axSourceEstimate,axPosterior,estimateBarSuccess,estimateBarFail = bernoulliConjugate.makeFigure(theta)
+fig,axSourceEstimate,axPosterior = bernoulliConjugate.initSummaryFigure()
+estimateBarSuccess,estimateBarFail = bernoulliConjugate.makeFigure(axSourceEstimate,axPosterior,theta)
 
 print('Adding true parameters to figure')
 bernoulliConjugate.addTrueSourcePlots(axSourceEstimate,p,estimateBarSuccess,estimateBarFail)
