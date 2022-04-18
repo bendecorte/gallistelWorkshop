@@ -232,7 +232,12 @@ class Exponential:
         # outputs: the divergence value
         divergence = np.log(trueDistribution) - np.log(approximatingDistribution) + (approximatingDistribution/trueDistribution) - 1
         return divergence
-    def makeFigure(self,n,dataValue,theta,numPosteriorBins):
+    def initSummaryFigure(self):
+        fig = plt.figure(figsize=plt.figaspect(.5))  
+        axSourceEstimate = fig.add_subplot(1,2,1)
+        axPosterior = fig.add_subplot(1,2,2)
+        return(fig,axSourceEstimate,axPosterior)
+    def makeFigure(self,axSourceEstimate,axPosterior,n,dataValue,theta,numPosteriorBins):
         # makes a summary figure for the current theta
         # inputs: same as self.getPosteriorStats
         # get data
@@ -241,10 +246,6 @@ class Exponential:
         bestMu = 1/bestLambda
         sourceX = np.linspace(0,scipy.stats.expon.ppf(.99,scale = bestMu),200)
         estimatePDF = scipy.stats.expon.pdf(sourceX,scale = bestMu)
-        # make figure
-        fig = plt.figure(figsize=plt.figaspect(.5))  
-        axSourceEstimate = fig.add_subplot(1,2,1)
-        axPosterior = fig.add_subplot(1,2,2)
         # plot estimate pdf
         estimateLine, = axSourceEstimate.plot(sourceX,estimatePDF)
         estimateLine.set_linewidth(3)
@@ -282,7 +283,7 @@ class Exponential:
         pos = copy.deepcopy(pos) # unsure if the copy will ever matter but just in case
         pos[0] = pos[0] + axWidth + colSpace
         axPosterior.set_position(pos)
-        return (fig,axSourceEstimate,axPosterior,estimateLine)
+        return estimateLine
     def addTrueSourcePlots(self,axSourceEstimate,estimateLine,mu):
         # adds 'ground truth' data for explicitly simulated Bernoulli distribution. 
         # plot source

@@ -38,7 +38,6 @@ class InteractiveNormalFig(Normal):
 
     def initializeAnimation(self):
         # need to run 2 iterations to get an estimate of tau
-        self.dataIndex = self.dataIndex + 1
         self.theta = self.conjugate.updateTheta(self.data[self.dataIndex],self.theta)
         self.dataIndex = self.dataIndex + 1
         self.theta = self.conjugate.updateTheta(self.data[self.dataIndex],self.theta)

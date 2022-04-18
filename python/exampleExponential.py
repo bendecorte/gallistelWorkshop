@@ -43,7 +43,10 @@ for dataI,dataValue in enumerate(cumulativeDataPoints):
 bestLambda,maxLikeLambda,posteriorPDF,lambdaX,muX = exponentialConjugate.getPosteriorStats(n,dataValue,theta,numPosteriorBins)
 
 print('Making analysis output figure')
-fig,axSourceEstimate,axPosterior,estimateLine = exponentialConjugate.makeFigure(n,dataValue,theta,numPosteriorBins)
+fig,axSourceEstimate,axPosterior = exponentialConjugate.initSummaryFigure()
+estimateLine = exponentialConjugate.makeFigure(axSourceEstimate,axPosterior,n,dataValue,theta,numPosteriorBins)
+
+#fig,axSourceEstimate,axPosterior,estimateLine = exponentialConjugate.makeFigure(n,dataValue,theta,numPosteriorBins)
 print('Adding true parameters to figure')
 exponentialConjugate.addTrueSourcePlots(axSourceEstimate,estimateLine,mu)
 
