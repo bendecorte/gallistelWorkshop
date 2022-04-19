@@ -44,7 +44,7 @@ class InteractiveNormalFig(Normal):
         # make figure using standard funcs and connect an event function
         self.fig,self.axSourceEstimate,self.axPosterior = self.conjugate.initSummaryFigure()
         self.estimateLine = self.conjugate.makeFigure(self.axSourceEstimate,self.axPosterior,self.plausibleMus,self.plausibleTaus,self.theta)
-        self.conjugate.addTrueSourcePlots(self.axSourceEstimate,self.estimateLine,self.mu,sigma)
+        self.conjugate.addTrueSourcePlots(self.axSourceEstimate,self.estimateLine,self.mu,self.sigma)
         self.fig.canvas.mpl_connect('button_press_event',self.updateFig)
         print('click figure to run next iteration')
         plt.show()
