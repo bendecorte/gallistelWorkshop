@@ -39,8 +39,8 @@ class InteractiveExponentialFig(Exponential):
         self.theta = self.conjugate.updateTheta(self.dataIndex+1,self.data[self.dataIndex],self.theta) # n, datum, and theta, respectively
         # make figure using standard funcs and connect an event function
         self.fig,self.axSourceEstimate,self.axPosterior = self.conjugate.initSummaryFigure()
-        self.estimateLine = self.conjugate.makeFigure(self.axSourceEstimate,self.axPosterior,self.dataIndex + 1,self.data[self.dataIndex],self.theta,500) # last ones: n, datum, theta, and number of bins for posterior, respectively
-        self.conjugate.addTrueSourcePlots(self.axSourceEstimate,self.estimateLine,self.mu)
+        self.estimateLine = self.conjugate.plotAnalysisOutput(self.axSourceEstimate,self.axPosterior,self.dataIndex + 1,self.data[self.dataIndex],self.theta,500) # last ones: n, datum, theta, and number of bins for posterior, respectively
+        self.conjugate.plotSimulatedData(self.axSourceEstimate,self.estimateLine,self.mu)
         self.fig.canvas.mpl_connect('button_press_event',self.updateFig)
         print('click figure to run next iteration')
         plt.show()
@@ -53,8 +53,8 @@ class InteractiveExponentialFig(Exponential):
             self.theta = self.conjugate.updateTheta(self.dataIndex+1,self.data[self.dataIndex],self.theta) # n, datum, and theta, respectively
             self.axSourceEstimate.clear() # lazy way, but the built-in figure functions have code for adjusting axis-limits, etc, which help. 
             self.axPosterior.clear()
-            self.estimateLine = self.conjugate.makeFigure(self.axSourceEstimate,self.axPosterior,self.dataIndex + 1,self.data[self.dataIndex],self.theta,500)
-            self.conjugate.addTrueSourcePlots(self.axSourceEstimate,self.estimateLine,self.mu)
+            self.estimateLine = self.conjugate.plotAnalysisOutput(self.axSourceEstimate,self.axPosterior,self.dataIndex + 1,self.data[self.dataIndex],self.theta,500)
+            self.conjugate.plotSimulatedData(self.axSourceEstimate,self.estimateLine,self.mu)
             newValue = self.data[self.dataIndex] - self.data[self.dataIndex-1] # keep in mind the data are cumulative, so subtract with prior value to get the actual added value. 
             self.axSourceEstimate.plot(np.array([newValue,newValue]),self.axSourceEstimate.get_ylim())
             plt.draw()

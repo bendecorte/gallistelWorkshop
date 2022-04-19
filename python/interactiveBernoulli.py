@@ -38,8 +38,8 @@ class InteractiveBernoulliFig(Bernoulli):
         self.theta = self.conjugate.updateTheta(self.data[self.dataIndex],self.theta) 
         # make figure using standard funcs and connect an event function
         self.fig,self.axSourceEstimate,self.axPosterior = self.conjugate.initSummaryFigure()
-        self.estimateBarSuccess,self.estimateBarFail = self.conjugate.makeFigure(self.axSourceEstimate,self.axPosterior,self.theta)
-        self.conjugate.addTrueSourcePlots(self.axSourceEstimate,self.p,self.estimateBarSuccess,self.estimateBarFail)
+        self.estimateBarSuccess,self.estimateBarFail = self.conjugate.plotAnalysisOutput(self.axSourceEstimate,self.axPosterior,self.theta)
+        self.conjugate.plotSimulatedData(self.axSourceEstimate,self.p,self.estimateBarSuccess,self.estimateBarFail)
         self.fig.canvas.mpl_connect('button_press_event',self.updateFig)
         print('click figure to run next iteration')
         plt.show()
@@ -52,8 +52,8 @@ class InteractiveBernoulliFig(Bernoulli):
             self.theta = self.conjugate.updateTheta(self.data[self.dataIndex],self.theta)  # n, datum, and theta, respectively
             self.axSourceEstimate.clear() # lazy way, but the built-in figure functions have code for adjusting axis-limits, etc, which help. 
             self.axPosterior.clear()
-            self.estimateBarSuccess,self.estimateBarFail = self.conjugate.makeFigure(self.axSourceEstimate,self.axPosterior,self.theta)
-            self.conjugate.addTrueSourcePlots(self.axSourceEstimate,self.p,self.estimateBarSuccess,self.estimateBarFail)
+            self.estimateBarSuccess,self.estimateBarFail = self.conjugate.plotAnalysisOutput(self.axSourceEstimate,self.axPosterior,self.theta)
+            self.conjugate.plotSimulatedData(self.axSourceEstimate,self.p,self.estimateBarSuccess,self.estimateBarFail)
             
             self.axSourceEstimate.set_xticklabels(('failure','*success*'))
             if self.data[self.dataIndex]==0:
@@ -69,5 +69,5 @@ class InteractiveBernoulliFig(Bernoulli):
 
 
 p = .2
-numDataPoints = 50
+numDataPoints = 500
 f = InteractiveBernoulliFig(p,numDataPoints)

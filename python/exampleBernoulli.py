@@ -42,10 +42,10 @@ bestP,posteriorPDF,posteriorX = bernoulliConjugate.getPosteriorStats(theta)
 
 print('Making analysis output figure')
 fig,axSourceEstimate,axPosterior = bernoulliConjugate.initSummaryFigure()
-estimateBarSuccess,estimateBarFail = bernoulliConjugate.makeFigure(axSourceEstimate,axPosterior,theta)
+estimateBarSuccess,estimateBarFail = bernoulliConjugate.plotAnalysisOutput(axSourceEstimate,axPosterior,theta)
 
 print('Adding true parameters to figure')
-bernoulliConjugate.addTrueSourcePlots(axSourceEstimate,p,estimateBarSuccess,estimateBarFail)
+bernoulliConjugate.plotSimulatedData(axSourceEstimate,p,estimateBarSuccess,estimateBarFail)
 
 bestP,_,_ = bernoulliConjugate.getPosteriorStats(theta)
 

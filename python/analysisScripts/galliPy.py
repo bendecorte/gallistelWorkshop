@@ -108,7 +108,7 @@ class Normal:
         axSourceEstimate = fig.add_subplot(1,2,1)
         axPosterior = fig.add_subplot(1,2,2)
         return(fig,axSourceEstimate,axPosterior)
-    def makeFigure(self,axSourceEstimate,axPosterior,plausibleMus,plausibleTaus,theta):
+    def plotAnalysisOutput(self,axSourceEstimate,axPosterior,plausibleMus,plausibleTaus,theta):
         # generates a summary figure
         # get data
         mu,_lambda,alpha,beta = self.unpackTheta(theta)   
@@ -154,7 +154,7 @@ class Normal:
         pos[0] = pos[0] + axWidth + colSpace
         axPosterior.set_position(pos)
         return estimateLine
-    def addTrueSourcePlots(self,axSourceEstimate,estimateLine,mu,sigma):
+    def plotSimulatedData(self,axSourceEstimate,estimateLine,mu,sigma):
         # adds summary of 'ground-truth' parameters when running the analysis on simulated data. axSourceEstimate and estimateLine come from the initial makeFigure method. mu and sigma are the normal parameters specified by the user for a simulation. 
         # plot source
         xlim = axSourceEstimate.get_xlim()
@@ -237,7 +237,7 @@ class Exponential:
         axSourceEstimate = fig.add_subplot(1,2,1)
         axPosterior = fig.add_subplot(1,2,2)
         return(fig,axSourceEstimate,axPosterior)
-    def makeFigure(self,axSourceEstimate,axPosterior,n,dataValue,theta,numPosteriorBins):
+    def plotAnalysisOutput(self,axSourceEstimate,axPosterior,n,dataValue,theta,numPosteriorBins):
         # makes a summary figure for the current theta
         # inputs: same as self.getPosteriorStats
         # get data
@@ -284,7 +284,7 @@ class Exponential:
         pos[0] = pos[0] + axWidth + colSpace
         axPosterior.set_position(pos)
         return estimateLine
-    def addTrueSourcePlots(self,axSourceEstimate,estimateLine,mu):
+    def plotSimulatedData(self,axSourceEstimate,estimateLine,mu):
         # adds 'ground truth' data for explicitly simulated Bernoulli distribution. 
         # plot source
         xlim = axSourceEstimate.get_xlim()
@@ -414,7 +414,7 @@ class Bernoulli:
         axSourceEstimate = fig.add_subplot(1,2,1)
         axPosterior = fig.add_subplot(1,2,2)
         return(fig,axSourceEstimate,axPosterior)        
-    def makeFigure(self,axSourceEstimate,axPosterior,theta):
+    def plotAnalysisOutput(self,axSourceEstimate,axPosterior,theta):
         # makes a summary figure for the current theta
         # get data
         alpha,beta = self.unpackTheta(theta) 
@@ -460,7 +460,7 @@ class Bernoulli:
         pos[0] = pos[0] + axWidth + colSpace
         axPosterior.set_position(pos)
         return (estimateBarSuccess,estimateBarFail)
-    def addTrueSourcePlots(self,axSourceEstimate,trueP,estimateBarSuccess,estimateBarFail):
+    def plotSimulatedData(self,axSourceEstimate,trueP,estimateBarSuccess,estimateBarFail):
         # adds 'ground truth' data for explicitly simulated Bernoulli distribution. 
         # get existing bar info
         barWidth = estimateBarSuccess.get_width()

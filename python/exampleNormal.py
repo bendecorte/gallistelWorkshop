@@ -25,7 +25,7 @@ from analysisScripts.galliPy import Normal
 print('Generating data')
 mu = 10
 sigma = 2
-numDataPoints = 20
+numDataPoints = 50
 dataPoints = np.random.normal(loc = mu, scale = sigma, size = (numDataPoints,))
 theta = np.array([0, 0, -.5, 0]) # Jeffreys prior. Note that, for convenience, this is also stored on init as a class property, which can be called here instead if desired.  
 
@@ -45,10 +45,10 @@ for dataI,dataValue in enumerate(dataPoints):
 print('Making analysis output figure')
 
 fig,axSourceEstimate,axPosterior = normalConjugate.initSummaryFigure()
-estimateLine = normalConjugate.makeFigure(axSourceEstimate,axPosterior,plausibleMus,plausibleTaus,theta)
+estimateLine = normalConjugate.plotAnalysisOutput(axSourceEstimate,axPosterior,plausibleMus,plausibleTaus,theta)
 
 print('Adding true parameters to figure')
-normalConjugate.addTrueSourcePlots(axSourceEstimate,estimateLine,mu,sigma)
+normalConjugate.plotSimulatedData(axSourceEstimate,estimateLine,mu,sigma)
 
 print('Finished. Best parameters are:')
 print('mu', bestMu)
