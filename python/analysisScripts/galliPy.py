@@ -486,6 +486,7 @@ class Bernoulli:
 
 # minor to do's:
 # overall:
+# - make matlab animations interactive, rather than timed.
 # -better documentation for inputs/outputs for each class
 # exponential class:
 # -reduce inputs needed for the getPosteriorStats function. could store the last n/data point as a property. keeping consistent with the matlab code for now. 
