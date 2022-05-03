@@ -23,31 +23,26 @@ import matplotlib.pyplot as plt
 from analysisScripts.galliPy import Normal
 
 print('Generating data')
-mu = 10
-sigma = 2
-numDataPoints = 50
-dataPoints = np.random.normal(loc = mu, scale = sigma, size = (numDataPoints,))
-theta = np.array([0, 0, -.5, 0]) # Jeffreys prior. Note that, for convenience, this is also stored on init as a class property, which can be called here instead if desired.  
-
-print('Making normal-gamma object')
+mu = 2
+sigma = .2
+dataPoints = np.random.normal(loc = mu, scale = sigma, size = (50,))
+  
+print('Making normal object')
 normalConjugate = Normal()
-
-print('Setting analysis parameters')
-numEvaluationPoints = 500 # number of points to evaluate posterior between range for each parameter defined below
-plausibleMus = np.linspace(-4*sigma,4*sigma,numEvaluationPoints) + mu
-plausibleTaus = np.linspace(.001,(1/(sigma**2))*4.5,numEvaluationPoints)
+theta = normalConjugate.jeffreysPrior # for reference: np.array([0, 0, -.5, 0]) 
 
 print('Running analysis')
 for dataI,dataValue in enumerate(dataPoints):
     theta = normalConjugate.updateTheta(dataValue,theta)
-    bestMu,bestTau,posteriorPDF = normalConjugate.getPosteriorStats(plausibleMus,plausibleTaus,theta)
+
+print('extracting stats')
+plausibleMus = np.linspace(-4*sigma,4*sigma,500) + mu
+plausibleTaus = np.linspace(.001,(1/(sigma**2))*4.5,500)
+bestMu,bestTau,posteriorPDF = normalConjugate.getPosteriorStats(plausibleMus,plausibleTaus,theta)
 
 print('Making analysis output figure')
-
 fig,axSourceEstimate,axPosterior = normalConjugate.initSummaryFigure()
 estimateLine = normalConjugate.plotAnalysisOutput(axSourceEstimate,axPosterior,plausibleMus,plausibleTaus,theta)
-
-print('Adding true parameters to figure')
 normalConjugate.plotSimulatedData(axSourceEstimate,estimateLine,mu,sigma)
 
 print('Finished. Best parameters are:')

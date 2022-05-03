@@ -24,30 +24,24 @@ from analysisScripts.galliPy import Bernoulli
 
 print('Generating data')
 p = .2
-numDataPoints = 50
-dataPoints = np.random.binomial(1,p, size = (numDataPoints,))
+dataPoints = np.random.binomial(1,p, size = (50,))
 
 print('Making bernoulli object')
 bernoulliConjugate = Bernoulli()
-
-print('Setting analysis parameters')
-theta = np.array([.5,.5]) # Jeffreys prior 
-numPosteriorBins = 500 # number of points to evaluate when computing posterior cdf/pdf
+theta = bernoulliConjugate.jeffreysPrior # for ref: np.array([.5,.5])
 
 print('Running analysis')
 for dataI,dataValue in enumerate(dataPoints):
     theta = bernoulliConjugate.updateTheta(dataValue,theta)
 
+print('Extracting stats')
+numPosteriorBins = 500 # number of points to evaluate when computing posterior cdf/pdf
 bestP,posteriorPDF,posteriorX = bernoulliConjugate.getPosteriorStats(theta)
 
 print('Making analysis output figure')
 fig,axSourceEstimate,axPosterior = bernoulliConjugate.initSummaryFigure()
 estimateBarSuccess,estimateBarFail = bernoulliConjugate.plotAnalysisOutput(axSourceEstimate,axPosterior,theta)
-
-print('Adding true parameters to figure')
 bernoulliConjugate.plotSimulatedData(axSourceEstimate,p,estimateBarSuccess,estimateBarFail)
-
-bestP,_,_ = bernoulliConjugate.getPosteriorStats(theta)
 
 print('Finished. Best parameter is:')
 print('best probability of success',bestP)
