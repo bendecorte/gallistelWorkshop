@@ -51,6 +51,7 @@ beta   = theta(4);
   
 P = gampdf(TAU, alpha, 1/beta) .* normpdf(X, mu, 1./sqrt(lambda.*TAU));
 
+
 if islogical(fig) && fig==true% create figure
     figure;set(gcf,'OuterPosition',[240.00 527.00 560.00 493.00])
     subplot(2,2,1)
