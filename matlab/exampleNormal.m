@@ -23,7 +23,7 @@ addpath(genpath(pwd),'-begin') % top of search path in case of conflicting depen
 %% generate data
 mu = 2;
 sigma = .2;
-data = normrnd(mu,sigma,1,100);
+data = normrnd(mu,sigma,1,50);
 
 %% set prior theta
 theta = [0 0 -.5 0]; % jeffreys for normal

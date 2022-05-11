@@ -22,11 +22,11 @@ addpath(genpath(pwd),'-begin') % top of search path in case of conflicting depen
 
 %% generate data
 mu = .2;
-data = exprnd(mu,1,100);
+data = exprnd(mu,1,50);
 data = cumsum(data); % data must be cumulative for the exponential case
 
 %% set prior theta
-theta = [.5 0]; % jeffreys for normal
+theta = [.5 0]; % jeffreys for exponential
 
 %% update theta based on data
 for dataI = 1:length(data)-1
@@ -35,6 +35,6 @@ for dataI = 1:length(data)-1
 end
 
 %% get stats/generate figure
-[~,lambdaEstimate] = expoupdate(length(data),data(length(data)),theta,100,true); % final two: number of bins for the posterior and whether to show the summary figure, respectivley
+[~,lambdaEstimate] = expoupdate(length(data),data(length(data)),theta,500,true); % final two: number of bins for the posterior and whether to show the summary figure, respectivley
 muEstimate = 1/lambdaEstimate;
 disp(['mu estimate = ' num2str(muEstimate)])

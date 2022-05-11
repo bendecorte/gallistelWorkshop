@@ -27,20 +27,20 @@ mu = .2
 dataPoints = np.random.exponential(scale = mu, size = (30,))
 cumulativeDataPoints = np.cumsum(dataPoints)
 
-print('Making exponential object')
+print('Setting prior')
 exponentialConjugate = Exponential()
 theta = exponentialConjugate.jeffreysPrior # for ref: np.array([.5,0]) 
 
-print('Running analysis')
+print('Updating theta based on data')
 for dataI,dataValue in enumerate(cumulativeDataPoints):
     n = dataI+1
     theta = exponentialConjugate.updateTheta(n,dataValue,theta)
 
-print('extracting stats')
+print('Getting stats')
 numPosteriorBins = 500 # number of points to evaluate when computing posterior cdf/pdf
 bestLambda,maxLikeLambda,posteriorPDF,lambdaX,muX = exponentialConjugate.getPosteriorStats(n,dataValue,theta,numPosteriorBins)
 
-print('Making analysis output figure')
+print('Generating summary figure')
 fig,axSourceEstimate,axPosterior = exponentialConjugate.initSummaryFigure()
 estimateLine = exponentialConjugate.plotAnalysisOutput(axSourceEstimate,axPosterior,n,dataValue,theta,numPosteriorBins)
 exponentialConjugate.plotSimulatedData(axSourceEstimate,estimateLine,mu)

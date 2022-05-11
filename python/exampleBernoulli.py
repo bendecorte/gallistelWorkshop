@@ -26,19 +26,18 @@ print('Generating data')
 p = .2
 dataPoints = np.random.binomial(1,p, size = (50,))
 
-print('Making bernoulli object')
+print('Setting prior')
 bernoulliConjugate = Bernoulli()
 theta = bernoulliConjugate.jeffreysPrior # for ref: np.array([.5,.5])
 
-print('Running analysis')
+print('Updating theta based on data')
 for dataI,dataValue in enumerate(dataPoints):
     theta = bernoulliConjugate.updateTheta(dataValue,theta)
 
-print('Extracting stats')
-numPosteriorBins = 500 # number of points to evaluate when computing posterior cdf/pdf
+print('Getting stats')
 bestP,posteriorPDF,posteriorX = bernoulliConjugate.getPosteriorStats(theta)
 
-print('Making analysis output figure')
+print('Generating summary figure')
 fig,axSourceEstimate,axPosterior = bernoulliConjugate.initSummaryFigure()
 estimateBarSuccess,estimateBarFail = bernoulliConjugate.plotAnalysisOutput(axSourceEstimate,axPosterior,theta)
 bernoulliConjugate.plotSimulatedData(axSourceEstimate,p,estimateBarSuccess,estimateBarFail)

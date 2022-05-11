@@ -25,22 +25,22 @@ from analysisScripts.galliPy import Normal
 print('Generating data')
 mu = 2
 sigma = .2
-dataPoints = np.random.normal(loc = mu, scale = sigma, size = (50,))
+dataPoints = np.random.normal(loc = mu, scale = sigma, size = (30,))
   
-print('Making normal object')
+print('Setting prior')
 normalConjugate = Normal()
-theta = normalConjugate.jeffreysPrior # for reference: np.array([0, 0, -.5, 0]) 
+theta = normalConjugate.jeffreysPrior # for reference: [0, 0, -.5, 0] 
 
-print('Running analysis')
+print('Updating theta based on data')
 for dataI,dataValue in enumerate(dataPoints):
     theta = normalConjugate.updateTheta(dataValue,theta)
 
-print('extracting stats')
+print('Getting stats')
 plausibleMus = np.linspace(-4*sigma,4*sigma,500) + mu
 plausibleTaus = np.linspace(.001,(1/(sigma**2))*4.5,500)
 bestMu,bestTau,posteriorPDF = normalConjugate.getPosteriorStats(plausibleMus,plausibleTaus,theta)
 
-print('Making analysis output figure')
+print('Generating summary figure')
 fig,axSourceEstimate,axPosterior = normalConjugate.initSummaryFigure()
 estimateLine = normalConjugate.plotAnalysisOutput(axSourceEstimate,axPosterior,plausibleMus,plausibleTaus,theta)
 normalConjugate.plotSimulatedData(axSourceEstimate,estimateLine,mu,sigma)

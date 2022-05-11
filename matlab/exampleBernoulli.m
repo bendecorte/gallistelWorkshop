@@ -22,10 +22,10 @@ addpath(genpath(pwd),'-begin') % top of search path in case of conflicting depen
 
 %% generate data
 p = .2;
-data = binornd(1,p,1,100);
+data = binornd(1,p,1,50);
 
 %% set prior theta
-theta = [.5 .5]; % jeffreys for normal
+theta = [.5 .5]; % jeffreys prior
 
 %% update theta based on data
 for dataI = 1:length(data)-1
