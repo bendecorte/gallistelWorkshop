@@ -37,12 +37,7 @@ end
 %% get stats/generate figure
 plausibleMus  = mu + linspace(-4*sigma,4*sigma,200); 
 plausibleTaus = linspace(.001,(1/(sigma^2))*4.5,200);
-posteriorPDF = normalgamma(plausibleMus,plausibleTaus,theta,true);
-[maxPDFValues,maxPDFIndices] = max(posteriorPDF(:)); % peak probability
-posteriorPDFSize = size(posteriorPDF);
-[maxMuIndex,maxTauIndex] = ind2sub(posteriorPDFSize,maxPDFIndices);
-muEstimate = plausibleMus(maxMuIndex);
-tauEstimate = plausibleTaus(maxTauIndex);
+[posteriorPDF,muEstimate,tauEstimate] = normalgamma(plausibleMus,plausibleTaus,theta,true);
 sigmaEstimate = 1/sqrt(tauEstimate);
 
 disp(['mu estimate = ' num2str(muEstimate)])

@@ -1,4 +1,4 @@
-function P = normalgamma(x,tau,theta,fig,ax)
+function [P,muEstimate,tauEstimate] = normalgamma(x,tau,theta,fig,ax)
 % computes the normalgamma probability density function on the mu and tau
 % (precision = 1/var) parameters of the normal distribution, given a 
 % vector of possible values for the mean (x) a vector of possible values
@@ -51,6 +51,12 @@ beta   = theta(4);
   
 P = gampdf(TAU, alpha, 1/beta) .* normpdf(X, mu, 1./sqrt(lambda.*TAU));
 
+%% MLE for mu and tau. added 5/24/22 by bjd
+[~,maxPDFIndices] = max(P(:)); % peak probability
+posteriorPDFSize = size(P);
+[maxMuIndex,maxTauIndex] = ind2sub(posteriorPDFSize,maxPDFIndices);
+muEstimate = x(maxMuIndex);
+tauEstimate = tau(maxTauIndex);
 
 if islogical(fig) && fig==true% create figure
     figure;set(gcf,'OuterPosition',[240.00 527.00 560.00 493.00])
